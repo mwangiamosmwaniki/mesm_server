@@ -31,7 +31,7 @@ app.post("/send-email", async (req, res) => {
       to: process.env.EMAIL_RECEIVER,
       subject: `New Form Submission from ${name}`,
       html: `
-        <div style="background: #9E9E9E, font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 8px; max-width: 600px; margin: auto;">
+        <div style="font-family: Arial, background: #9E9E9E, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 8px; max-width: 600px; margin: auto;">
           <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
