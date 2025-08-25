@@ -38,7 +38,9 @@ app.post("/send-email", async (req, res) => {
           <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
+          <p><strong>Service Interest:</strong> ${
+            service_interest || "General"
+          }</p>
           <p><strong>Message:</strong></p>
           <div style="margin: 10px 0; padding: 12px; background: #f9f9f9; 
                       border-left: 4px solid #3498db; border-radius: 4px;">
@@ -61,10 +63,13 @@ app.post("/send-email", async (req, res) => {
         <div style="font-family: Arial, sans-serif; background: #f4f6f9; padding: 30px;">
           <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             
+            <!-- Header with Logo -->
             <div style="background: linear-gradient(90deg, #3498db, #2ecc71); padding: 20px; text-align: center; color: #fff;">
+              <img src="src\assets\images\mesm.png" alt="MESM Logo" style="max-width: 120px; margin-bottom: 10px;" />
               <h1 style="margin: 0;">Thank You, ${name}!</h1>
             </div>
             
+            <!-- Body -->
             <div style="padding: 20px; color: #333;">
               <p style="font-size: 16px;">We have received your message and our team will get back to you soon.</p>
               <p style="font-size: 15px; margin-top: 10px;">
@@ -77,6 +82,7 @@ app.post("/send-email", async (req, res) => {
               <p style="margin-top: 20px;">Meanwhile, feel free to explore our website for more information.</p>
             </div>
             
+            <!-- Footer -->
             <div style="background: #f0f0f0; padding: 15px; text-align: center; font-size: 13px; color: #777;">
               <p>MESM Company Ltd | Nairobi, Kenya</p>
               <p>© ${new Date().getFullYear()} MESM. All rights reserved.</p>
