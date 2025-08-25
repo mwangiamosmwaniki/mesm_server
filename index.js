@@ -24,23 +24,15 @@ app.post("/send-email", async (req, res) => {
       },
     });
 
-    // Email content
-    const mailOptions = {
-      from: `"Website Contact" <${process.env.EMAIL_USER}>`, // must be your Gmail
-      replyTo: email, // so you can hit "Reply" to reach the sender
-      to: process.env.EMAIL_RECEIVER, // recipient (your inbox)
+    // Email to YOU (the website owner)
+    const ownerMail = {
+      from: `"Website Contact" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
+      to: process.env.EMAIL_RECEIVER,
       subject: `New Contact Form Submission from ${name}`,
-      text: `
-        New Contact Form Submission
-
-        Name: ${name}
-        Email: ${email}
-        Service Interest: ${service_interest || "General"}
-        Message: ${message}
-      `,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 8px; max-width: 600px; margin: auto;">
-          <h2 style="color: #2c3e50; margin-bottom: 20px;">📩 New Contact Form Submission</h2>
+          <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
@@ -56,11 +48,45 @@ app.post("/send-email", async (req, res) => {
       `,
     };
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
+    // Thank You email to the SENDER
+    const thankYouMail = {
+      from: `"MESM Company Ltd" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "✅ Thank You for Contacting Us!",
+      html: `
+        <div style="font-family: Arial, sans-serif; background: #f4f6f9; padding: 30px;">
+          <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            
+            <div style="background: linear-gradient(90deg, #3498db, #2ecc71); padding: 20px; text-align: center; color: #fff;">
+              <h1 style="margin: 0;">Thank You, ${name}!</h1>
+            </div>
+            
+            <div style="padding: 20px; color: #333;">
+              <p style="font-size: 16px;">We have received your message and our team will get back to you soon.</p>
+              <p style="font-size: 15px; margin-top: 10px;">
+                <strong>Your Submission:</strong><br>
+                <span style="color: #555;">${message}</span>
+              </p>
+              <p style="margin-top: 20px;">We appreciate your interest in our services (<strong>${service_interest || "General"}</strong>).</p>
+              <p style="margin-top: 20px;">Meanwhile, feel free to explore our website for more information.</p>
+            </div>
+            
+            <div style="background: #f0f0f0; padding: 15px; text-align: center; font-size: 13px; color: #777;">
+              <p>MESM Company Ltd | Nairobi, Kenya</p>
+              <p>© ${new Date().getFullYear()} MESM. All rights reserved.</p>
+            </div>
+            
+          </div>
+        </div>
+      `,
+    };
 
-    console.log("✅ Email sent:", info.response);
-    res.json({ success: true, message: "Email sent successfully!" });
+    // Send both emails
+    await transporter.sendMail(ownerMail);
+    await transporter.sendMail(thankYouMail);
+
+    console.log("✅ Emails sent successfully");
+    res.json({ success: true, message: "Emails sent successfully!" });
   } catch (error) {
     console.error("❌ Nodemailer error:", error);
     res.status(500).json({ success: false, error: error.message });
