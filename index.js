@@ -31,18 +31,28 @@ app.post("/send-email", async (req, res) => {
       to: process.env.EMAIL_RECEIVER, // recipient (your inbox)
       subject: `New Contact Form Submission from ${name}`,
       text: `
+        New Contact Form Submission
+
         Name: ${name}
         Email: ${email}
         Service Interest: ${service_interest || "General"}
         Message: ${message}
       `,
       html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 8px; max-width: 600px; margin: auto;">
+          <h2 style="color: #2c3e50; margin-bottom: 20px;">📩 New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
+          <p><strong>Message:</strong></p>
+          <div style="margin: 10px 0; padding: 12px; background: #f9f9f9; border-left: 4px solid #3498db; border-radius: 4px;">
+            ${message}
+          </div>
+          <hr style="margin-top:20px; border:0; border-top:1px solid #ccc;" />
+          <p style="font-size: 12px; color: #999; text-align: center;">
+            This email was sent automatically from your website contact form.
+          </p>
+        </div>
       `,
     };
 
