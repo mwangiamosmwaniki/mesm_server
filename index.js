@@ -65,7 +65,7 @@ app.post("/send-email", async (req, res) => {
             
             <!-- Header with Logo -->
             <div style="background: linear-gradient(90deg, #3498db, #2ecc71); padding: 20px; text-align: center; color: #fff;">
-              <img src="src\assets\images\mesm.png" alt="MESM Logo" style="max-width: 120px; margin-bottom: 10px;" />
+              <img src="assets\mesm.png" alt="MESM Logo" style="max-width: 120px; margin-bottom: 10px;" />
               <h1 style="margin: 0;">Thank You, ${name}!</h1>
             </div>
             
