@@ -29,7 +29,7 @@ app.post("/send-email", async (req, res) => {
       from: `"Website Contact" <${process.env.EMAIL_USER}>`,
       replyTo: email,
       to: process.env.EMAIL_RECEIVER,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `New Form Submission from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 8px; max-width: 600px; margin: auto;">
           <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
@@ -37,7 +37,7 @@ app.post("/send-email", async (req, res) => {
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
           <p><strong>Message:</strong></p>
-          <div style="margin: 10px 0; padding: 12px; background: #f9f9f9; border-left: 4px solid #3498db; border-radius: 4px;">
+          <div style="margin: 10px 0; padding: 12px; background: #9E9E9E; border-left: 4px solid #3498db; border-radius: 4px;">
             ${message}
           </div>
           <hr style="margin-top:20px; border:0; border-top:1px solid #ccc;" />
