@@ -8,23 +8,27 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Email route
+// POST /send-email
 app.post("/send-email", async (req, res) => {
   const { name, email, message, service_interest } = req.body;
 
   try {
-    // Setup email transporter
+    // Create transporter with Gmail SMTP
     const transporter = nodemailer.createTransport({
-      service: "gmail", // or smtp.office365, sendgrid, etc.
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true = port 465, false = port 587
       auth: {
-        user: process.env.EMAIL_USER, // your email
+        user: process.env.EMAIL_USER, // your Gmail address
         pass: process.env.EMAIL_PASS, // your App Password
       },
     });
 
-    await transporter.sendMail({
-      from: email,
-      to: process.env.EMAIL_RECEIVER, // where you want to receive messages
+    // Email content
+    const mailOptions = {
+      from: `"Website Contact" <${process.env.EMAIL_USER}>`, // must be your Gmail
+      replyTo: email, // so you can hit "Reply" to reach the sender
+      to: process.env.EMAIL_RECEIVER, // recipient (your inbox)
       subject: `New Contact Form Submission from ${name}`,
       text: `
         Name: ${name}
@@ -32,14 +36,28 @@ app.post("/send-email", async (req, res) => {
         Service Interest: ${service_interest || "General"}
         Message: ${message}
       `,
-    });
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service Interest:</strong> ${service_interest || "General"}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    };
 
+    // Send email
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("✅ Email sent:", info.response);
     res.json({ success: true, message: "Email sent successfully!" });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Nodemailer error:", error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
+);
