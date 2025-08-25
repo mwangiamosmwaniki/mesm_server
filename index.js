@@ -45,7 +45,7 @@ app.post("/send-email", async (req, res) => {
             ${message}
           </div>
           <hr style="margin-top:20px; border:0; border-top:1px solid #ccc;" />
-          <p style="font-size: 12px; color: #999; text-align: center;">
+          <p style="font-size: 12px; color: #fff; text-align: center;">
             This email was sent automatically from your website contact form.
           </p>
         </div>
