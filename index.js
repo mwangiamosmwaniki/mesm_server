@@ -43,7 +43,7 @@ app.post("/send-email", async (req, res) => {
           }</p>
           <p><strong>Message:</strong></p>
           <div style="margin: 10px 0; padding: 12px; background: #f9f9f9; 
-                      border-left: 4px solid #3498db; border-radius: 4px;">
+                      border-left: 4px solid #ffffffff; border-radius: 4px;">
             ${message}
           </div>
           <hr style="margin-top:20px; border:0; border-top:1px solid #ccc;" />
