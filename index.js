@@ -37,7 +37,7 @@ app.post("/send-email", async (req, res) => {
                     background: linear-gradient(135deg, #005A9C, #00CED1);">
           <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
-          <p style="color: #fff;"><strong>Email:</strong> ${email}</p>
+          <p><strong>Email:</strong style ="color: #fff;"> ${email}</p>
           <p><strong>Service Interest:</strong> ${
             service_interest || "General"
           }</p>
