@@ -34,7 +34,7 @@ app.post("/send-email", async (req, res) => {
         <div style="font-family: Arial, sans-serif; padding: 20px; 
                     border: 1px solid #eee; border-radius: 8px; 
                     max-width: 600px; margin: auto;
-                    background: linear-gradient(135deg, #FF9F42, #F77E68);">
+                    background: linear-gradient(135deg, #005A9C, #00CED1);">
           <h2 style="color: #2c3e50;">📩 New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
